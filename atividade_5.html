@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- REACT LIBRARY -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- REACT DOM LIBRARY -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- BABEL LIBRARY -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React - Contador, Input, Alternador</title>
+</head>
+
+<body>
+    <div id="raiz">Seu APP React vai substituir essa div</div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function ContadorBasico() {
+            const [contador, setContador] = useState(0);
+
+            return (
+                <div>
+                    <h2>Contador Básico</h2>
+                    <p>Valor: {contador}</p>
+                    <button onClick={() => setContador(contador + 1)}>Incrementar</button>
+                    <button onClick={() => setContador(contador - 1)}>Decrementar</button>
+                </div>
+            );
+        }
+
+        function InputTexto() {
+            const [textoDigitado, setTextoDigitado] = useState('');
+
+            function handleChange(event) {
+                setTextoDigitado(event.target.value);
+            }
+
+            return (
+                <div>
+                    <h2>Campo de Texto Controlado</h2>
+                    <input 
+                        type="text" 
+                        value={textoDigitado} 
+                        onChange={handleChange} 
+                        placeholder="Digite algo..." 
+                    />
+                    <p>Texto atual: {textoDigitado}</p>
+                </div>
+            );
+        }
+
+        function Alternador() {
+            const [estaVisivel, setEstaVisivel] = useState(false);
+
+            function handleToggle() {
+                setEstaVisivel(!estaVisivel);
+            }
+
+            return (
+                <div>
+                    <h2>Alternador de Conteúdo</h2>
+                    <button onClick={handleToggle}>
+                        {estaVisivel ? 'Ocultar' : 'Mostrar'}
+                    </button>
+                    { estaVisivel && <p>Olá, eu sou visível!</p> }
+                </div>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <ContadorBasico />
+                    <hr />
+                    <InputTexto />
+                    <hr />
+                    <Alternador />
+                </div>
+            );
+        }
+
+        const elementoDoApp = document.getElementById("raiz");
+        const aplicacao = ReactDOM.createRoot(elementoDoApp);
+        aplicacao.render(<App />);
+    </script>
+</body>
+
+</html>
